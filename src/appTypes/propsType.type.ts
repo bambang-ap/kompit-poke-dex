@@ -2,7 +2,7 @@ import {PropsWithChildren} from 'react';
 
 import {FontAwesome5IconProps} from 'react-native-vector-icons/FontAwesome5';
 
-import {TNotes} from './app.zod';
+import {TPokemon} from './app.zod';
 
 export type IconProps = Pick<FontAwesome5IconProps, 'onPress'> & {
   /**
@@ -14,7 +14,7 @@ export type IconProps = Pick<FontAwesome5IconProps, 'onPress'> & {
 
 export type AppScreenProps = PropsWithChildren<{className?: string}>;
 
-export type NotesProps = TNotes & {onPress?: NoopVoid};
+export type NotesProps = TPokemon & {onPress?: NoopVoid};
 
 export type PromptOptions = {
   onConfirm: NoopVoid;

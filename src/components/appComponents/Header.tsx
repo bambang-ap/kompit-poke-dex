@@ -1,14 +1,45 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 
-import {Icon} from '@components';
+import {Icon, Spacer} from '@components';
 
-export default function Header() {
+type Props = {
+  title?: string;
+  onBack?: NoopVoid;
+  leftAccessory?: JSX.Element;
+  rightAccessory?: JSX.Element;
+};
+
+export default function Header({
+  title,
+  onBack,
+  leftAccessory,
+  rightAccessory,
+}: Props) {
   return (
     <View className="flex-row items-center p-4 border-b -m-4 -mb-0">
-      <Icon name="arrow-left" />
-      <Text className="flex-1 text-center">Title</Text>
-      <Icon name="heart" />
+      {onBack && (
+        <>
+          <Icon onPress={onBack} name="arrow-left" />
+          <Spacer />
+        </>
+      )}
+
+      {leftAccessory && (
+        <>
+          {leftAccessory}
+          <Spacer />
+        </>
+      )}
+
+      <Text className="flex-1 text-center">{title}</Text>
+
+      {rightAccessory && (
+        <>
+          {rightAccessory}
+          <Spacer />
+        </>
+      )}
     </View>
   );
 }

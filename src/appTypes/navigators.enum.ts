@@ -1,4 +1,4 @@
-import {TNotes} from './app.zod';
+import {TPokemon} from './app.zod';
 
 export enum RootStackList {
   Pokedex = 'PokeDex',
@@ -14,6 +14,6 @@ export enum MenuList {
 
 export type RootStackParamList = {
   [RootStackList.Pokedex]: undefined;
-  [RootStackList.PokeDetail]: undefined;
-  [RootStackList.PokeFavorites]: undefined | TNotes;
+  [RootStackList.PokeDetail]: TPokemon;
+  [RootStackList.PokeFavorites]: TPokemon;
 };
