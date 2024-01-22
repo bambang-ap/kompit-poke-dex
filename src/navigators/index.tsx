@@ -1,9 +1,9 @@
 import * as React from 'react';
-import {Text} from 'react-native';
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {RootStackList, RootStackParamList} from '@appTypes/navigators.enum';
+import PokeDex from '@screens/PokeDex';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -12,10 +12,7 @@ export default function RootStackNavigator() {
     <Stack.Navigator
       screenOptions={{headerShown: false}}
       initialRouteName={RootStackList.Pokedex}>
-      <Stack.Screen
-        name={RootStackList.Pokedex}
-        component={() => <Text>try</Text>}
-      />
+      <Stack.Screen name={RootStackList.Pokedex} component={PokeDex} />
     </Stack.Navigator>
   );
 }

@@ -22,6 +22,7 @@ function App() {
   return (
     <>
       <StatusBar barStyle="dark-content" backgroundColor="white" />
+
       <RecoilRoot>
         <ReactNativeRecoilPersistGate store={ReactNativeRecoilPersist}>
           <NavigationContainer initialState={initialState} ref={ref}>
