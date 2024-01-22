@@ -15,5 +15,5 @@ export enum MenuList {
 export type RootStackParamList = {
   [RootStackList.Pokedex]: undefined;
   [RootStackList.PokeDetail]: TPokemon;
-  [RootStackList.PokeFavorites]: TPokemon;
+  [RootStackList.PokeFavorites]: undefined;
 };
