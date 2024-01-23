@@ -9,6 +9,7 @@ export type IconProps = Pick<FontAwesome5IconProps, 'onPress'> & {
    * find icon name on https://fontawesome.com/v5/search
    */
   name: string;
+  solid?: boolean;
   className?: string;
 };
 

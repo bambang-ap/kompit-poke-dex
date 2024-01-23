@@ -1,23 +1,36 @@
 import React from 'react';
 import {Image, Text, View} from 'react-native';
 
+import {useRecoilState} from 'recoil';
+
 import AppScreen from '@appComp/AppScreen';
 import Header from '@appComp/Header';
 import {TPokemonDetail} from '@appTypes/app.zod';
 import {RootStackList} from '@appTypes/navigators.enum';
 import {Icon, List, Spacer} from '@components';
 import {usePokemonDetail} from '@query';
-import {getIdFromLastUrl} from '@utils/index';
+import {atomFavorites} from '@recoils';
+import {favoriteToggler, getIdFromLastUrl} from '@utils/index';
 import {useStackNavigation} from '@utils/navigators';
 
 export default function PokeDetail() {
   const {navigation, route} = useStackNavigation<RootStackList.PokeDetail>();
 
+  const [favorites, setFavorites] = useRecoilState(atomFavorites);
+  const url = route.params.url;
+
   const id = getIdFromLastUrl(route.params.url);
+  const isFavorite = favorites.findIndex(cur => cur.url === url) >= 0;
 
   const {data} = usePokemonDetail(id);
 
   const {sprites, abilities = [], name} = data ?? {};
+
+  function toggleFavorite() {
+    setFavorites(prev => {
+      return favoriteToggler(prev, route.params);
+    });
+  }
 
   return (
     <AppScreen scrollable>
@@ -35,7 +48,7 @@ export default function PokeDetail() {
       <View className="flex-row justify-between items-center">
         <Text>{name?.ucwords()}</Text>
         <Spacer />
-        <Icon name="heart" />
+        <Icon onPress={toggleFavorite} solid={isFavorite} name="heart" />
       </View>
 
       <RenderSprites sprites={sprites!} />

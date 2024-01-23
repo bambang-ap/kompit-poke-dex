@@ -41,14 +41,6 @@ module.exports = {
         radix: 0,
         'func-names': 0,
         'class-methods-use-this': 0,
-        '@typescript-eslint/naming-convention': [
-          1,
-          {
-            selector: 'default',
-            format: ['camelCase', 'UPPER_CASE', 'PascalCase', 'snake_case'],
-            leadingUnderscore: 'allow',
-          },
-        ],
 
         'import/no-extraneous-dependencies': 0,
         'import/prefer-default-export': 0,
