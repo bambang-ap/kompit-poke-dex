@@ -2,14 +2,10 @@ import {Alert} from 'react-native';
 
 import {PromptOptions} from '@appTypes/propsType.type';
 
-type Entries<T> = {
-  [K in keyof T]: [K, T[K]];
-}[keyof T][];
+export function getIdFromLastUrl(url: string) {
+  const [id] = url.match(/\d+.$/g)?.map(e => e.replace(/\//g, '')) ?? [];
 
-export function entries<T extends object>(obj?: T) {
-  if (!obj) return [];
-
-  return Object.entries(obj) as Entries<T>;
+  return id;
 }
 
 export function prompt(message: string, options?: PromptOptions): void;

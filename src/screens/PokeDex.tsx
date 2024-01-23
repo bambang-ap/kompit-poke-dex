@@ -7,7 +7,7 @@ import Header from '@appComp/Header';
 import PokemonList from '@appComp/PokemonList';
 import {RootStackList} from '@appTypes/navigators.enum';
 import {Icon, Input} from '@components';
-import {useListPokemon} from '@query';
+import {usePokemonList} from '@query';
 import {useStackNavigation} from '@utils/navigators';
 
 export default function PokeDex() {
@@ -19,7 +19,7 @@ export default function PokeDex() {
     hasNextPage = false,
     isFetchingNextPage,
     fetchNextPage,
-  } = useListPokemon();
+  } = usePokemonList();
 
   function navigateFavorites() {
     navigation.navigate(RootStackList.PokeFavorites);

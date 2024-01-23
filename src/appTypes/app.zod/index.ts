@@ -1,5 +1,10 @@
 import {z} from 'zod';
 
+export * from './pokemon';
+
+export type TPokemonUrlParams = z.infer<typeof tPokemonUrlParams>;
+export const tPokemonUrlParams = z.literal('offset').or(z.literal('limit'));
+
 export type TPokemon = z.infer<typeof tPokemon>;
 export const tPokemon = z.object({
   name: z.string(),

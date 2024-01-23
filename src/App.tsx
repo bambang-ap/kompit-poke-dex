@@ -1,4 +1,5 @@
 import 'global-methods';
+import '@total-typescript/ts-reset';
 
 import React from 'react';
 import {StatusBar} from 'react-native';

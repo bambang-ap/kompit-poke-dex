@@ -1,7 +1,7 @@
-import {useInfiniteQuery} from '@tanstack/react-query';
+import {useInfiniteQuery, useQuery} from '@tanstack/react-query';
 import axios from 'axios';
 
-import {TPokemon} from '@appTypes/app.zod';
+import {TPokemon, TPokemonDetail, TPokemonUrlParams} from '@appTypes/app.zod';
 import {API_HOST} from '@constants';
 
 export async function baseAPI<Res>(path: string, params?: object) {
@@ -12,7 +12,7 @@ export async function baseAPI<Res>(path: string, params?: object) {
   return data.data;
 }
 
-export function useListPokemon() {
+export function usePokemonList() {
   const query = useInfiniteQuery({
     queryKey: ['Pokemon', 'List'],
     queryFn({pageParam = 0}) {
@@ -26,7 +26,7 @@ export function useListPokemon() {
 
       if (!next) return false;
 
-      const nextParams = next?.toQueryParams<'offset' | 'limit'>();
+      const nextParams = next?.toQueryParams<TPokemonUrlParams>();
 
       return nextParams?.offset;
     },
@@ -37,4 +37,15 @@ export function useListPokemon() {
   }, []);
 
   return {...query, dataMapped};
+}
+
+export function usePokemonDetail(id: string) {
+  const query = useQuery({
+    queryKey: ['Pokemon', 'Detail', id],
+    queryFn() {
+      return baseAPI<TPokemonDetail>(`/pokemon/${id}`);
+    },
+  });
+
+  return query;
 }
