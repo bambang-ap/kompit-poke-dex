@@ -29,10 +29,16 @@ export default function PokeDex() {
     <AppScreen>
       <Header
         title="Pokedex"
-        rightAccessory={<Icon name="heart" onPress={navigateFavorites} />}
+        rightAccessory={
+          <Icon className="text-xl" name="heart" onPress={navigateFavorites} />
+        }
       />
 
-      <Input control={control} fieldName="search" />
+      <Input
+        placeholder="Search by name..."
+        control={control}
+        fieldName="search"
+      />
 
       <PokemonList
         data={dataMapped}

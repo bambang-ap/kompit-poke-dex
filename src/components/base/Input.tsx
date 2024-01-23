@@ -25,7 +25,11 @@ function InputComponent<F extends FieldValues>(
   } = controller;
 
   return (
-    <View className={classNames('border border-black rounded-lg', className)}>
+    <View
+      className={classNames(
+        'border border-gray-500 px-4 py-2 rounded-lg',
+        className,
+      )}>
       <TextInput
         {...field}
         value={value}

@@ -17,7 +17,7 @@ export default function Header({
   rightAccessory,
 }: Props) {
   return (
-    <View className="flex-row items-center p-4 border-b -m-4 -mb-0">
+    <View className="flex-row items-center p-4 border-b border-gray-500 -m-4 -mb-0">
       {onBack && (
         <>
           <Icon onPress={onBack} name="arrow-left" />
@@ -32,7 +32,7 @@ export default function Header({
         </>
       )}
 
-      <Text className="flex-1 text-center">{title}</Text>
+      <Text className="flex-1 font-bold text-lg text-center">{title}</Text>
 
       {rightAccessory && (
         <>

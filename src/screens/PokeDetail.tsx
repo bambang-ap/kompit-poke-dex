@@ -36,8 +36,8 @@ export default function PokeDetail() {
     <AppScreen scrollable>
       <Header title="Pokemon Detail" onBack={navigation.goBack} />
 
-      <View className="pb-4 items-center border-b -mx-4">
-        <View className="h-32 w-32">
+      <View className="pb-4 items-center border-b border-gray-500 -mx-4">
+        <View className="h-64 w-64">
           <Image
             className="w-full h-full"
             source={{uri: data?.sprites.front_default}}
@@ -46,13 +46,17 @@ export default function PokeDetail() {
       </View>
 
       <View className="flex-row justify-between items-center">
-        <Text>{name?.ucwords()}</Text>
+        <Text className="text-2xl font-bold">{name?.ucwords()}</Text>
         <Spacer />
         <Icon onPress={toggleFavorite} solid={isFavorite} name="heart" />
       </View>
 
+      <Spacer />
+
       <RenderSprites sprites={sprites!} />
       <RenderAbilities abilities={abilities} />
+
+      <Spacer />
     </AppScreen>
   );
 }
@@ -60,7 +64,7 @@ export default function PokeDetail() {
 function RenderAbilities({abilities}: Pick<TPokemonDetail, 'abilities'>) {
   return (
     <>
-      <Text>Abilities</Text>
+      <Text className="text-lg font-bold">Abilities</Text>
       <Spacer />
       {abilities.mmap(({item: {ability}, isLast}) => {
         return (
@@ -75,28 +79,35 @@ function RenderAbilities({abilities}: Pick<TPokemonDetail, 'abilities'>) {
 }
 
 function RenderSprites({sprites}: Pick<TPokemonDetail, 'sprites'>) {
-  const data = entries(sprites).filter(([, url]) => typeof url === 'string');
+  const data = entries(sprites)
+    .filter(([, url]) => {
+      return typeof url === 'string';
+    })
+    .reverse();
 
   return (
     <>
-      <Text>Sprite Gallery</Text>
+      <Text className="text-lg font-bold">Sprite Gallery</Text>
 
-      <View>
-        <List
-          numColumns={2}
-          data={data}
-          renderItem={({item: [, url]}) => {
-            return (
-              <View className="w-24 h-24">
+      <Spacer />
+
+      <List
+        spacing="p-4"
+        numColumns={2}
+        data={data}
+        renderItem={({item: [, url]}) => {
+          return (
+            <View className="items-center border border-gray-500 rounded-lg">
+              <View className="w-32 h-32">
                 <Image
                   className="w-full h-full"
                   source={{uri: url as string}}
                 />
               </View>
-            );
-          }}
-        />
-      </View>
+            </View>
+          );
+        }}
+      />
     </>
   );
 }

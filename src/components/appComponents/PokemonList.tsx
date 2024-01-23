@@ -1,9 +1,16 @@
 import React from 'react';
-import {ActivityIndicator, Text, TouchableOpacity, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 import {TPokemon} from '@appTypes/app.zod';
 import {RootStackList} from '@appTypes/navigators.enum';
 import {List, Spacer} from '@components';
+import {getIdFromLastUrl} from '@utils/index';
 import {useStackNavigation} from '@utils/navigators';
 
 type Props<T extends TPokemon> = {
@@ -37,15 +44,25 @@ export default function PokemonList<T extends TPokemon>({
         refreshing={isFetchingNextPage}
         onEndReached={hasNextPage ? fetchNextPage : undefined}
         renderItem={({item}) => {
+          const id = getIdFromLastUrl(item.url);
+          const uri = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+
           return (
             <TouchableOpacity
-              className="border rounded-lg overflow-hidden p-4"
+              key={item.url}
+              className="border border-gray-500 rounded-lg overflow-hidden p-4"
               onPress={() =>
                 navigation.navigate(RootStackList.PokeDetail, item)
               }>
-              <View className="bg-gray-500 self-center p-5" />
+              <View className="self-center w-32 h-32">
+                {!!id && !!uri && (
+                  <Image className="w-full h-full" source={{uri}} />
+                )}
+              </View>
               <Spacer />
-              <Text className="text-center">{item?.name?.ucwords()}</Text>
+              <Text className="text-center text-base">
+                {item?.name?.ucwords()}
+              </Text>
             </TouchableOpacity>
           );
         }}

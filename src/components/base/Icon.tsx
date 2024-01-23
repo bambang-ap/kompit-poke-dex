@@ -5,5 +5,5 @@ import FAIcon from 'react-native-vector-icons/FontAwesome5';
 import {IconProps} from '@appTypes/propsType.type';
 
 export function Icon(props: IconProps) {
-  return <FAIcon {...props} />;
+  return <FAIcon {...props} size={20} />;
 }
