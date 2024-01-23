@@ -12,7 +12,9 @@ import {useStackNavigation} from '@utils/navigators';
 
 export default function PokeDex() {
   const {navigation} = useStackNavigation();
-  const {control} = useForm();
+  const {control, watch} = useForm({defaultValues: {search: ''}});
+
+  const {search} = watch();
 
   const {
     dataMapped = [],
@@ -20,6 +22,10 @@ export default function PokeDex() {
     isFetchingNextPage,
     fetchNextPage,
   } = usePokemonList();
+
+  const filteredList = dataMapped.filter(poke =>
+    poke.name.toLowerCase().includes(search.toLowerCase()),
+  );
 
   function navigateFavorites() {
     navigation.navigate(RootStackList.PokeFavorites);
@@ -35,13 +41,13 @@ export default function PokeDex() {
       />
 
       <Input
-        placeholder="Search by name..."
         control={control}
         fieldName="search"
+        placeholder="Search by name..."
       />
 
       <PokemonList
-        data={dataMapped}
+        data={filteredList}
         pagination={{
           isFetchingNextPage,
           hasNextPage,
