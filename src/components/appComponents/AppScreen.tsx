@@ -1,11 +1,11 @@
-import React, {ReactNode} from 'react';
+import React, {Fragment, ReactNode} from 'react';
 import {SafeAreaView, ScrollView, View} from 'react-native';
 
 import {Spacer} from '@components';
 
 type Props = {
-  children: ReactNode | JSX.Element[];
   scrollable?: boolean;
+  children: ReactNode | JSX.Element[];
 };
 
 export default function AppScreen({children, scrollable}: Props) {
@@ -17,12 +17,12 @@ export default function AppScreen({children, scrollable}: Props) {
     <SafeAreaView className="flex-1 flex-col">
       <ViewRenderer className="flex-1 p-4">
         {isArray
-          ? children.mmap(({item, isLast}) => {
+          ? children.mmap(({item, isLast}, index) => {
               return (
-                <>
+                <Fragment key={index.toString()}>
                   {item}
                   {!isLast && <Spacer />}
-                </>
+                </Fragment>
               );
             })
           : children}

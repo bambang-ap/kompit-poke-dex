@@ -7,13 +7,19 @@ import Header from '@appComp/Header';
 import PokemonList from '@appComp/PokemonList';
 import {RootStackList} from '@appTypes/navigators.enum';
 import {Icon, Input} from '@components';
+import {useListPokemon} from '@query';
 import {useStackNavigation} from '@utils/navigators';
 
 export default function PokeDex() {
   const {navigation} = useStackNavigation();
   const {control} = useForm();
 
-  const data = [1, 2, 3, 4, 5, 3, 4];
+  const {
+    dataMapped = [],
+    hasNextPage = false,
+    isFetchingNextPage,
+    fetchNextPage,
+  } = useListPokemon();
 
   function navigateFavorites() {
     navigation.navigate(RootStackList.PokeFavorites);
@@ -28,7 +34,14 @@ export default function PokeDex() {
 
       <Input control={control} fieldName="search" />
 
-      <PokemonList data={data} />
+      <PokemonList
+        data={dataMapped}
+        pagination={{
+          isFetchingNextPage,
+          hasNextPage,
+          fetchNextPage,
+        }}
+      />
     </AppScreen>
   );
 }

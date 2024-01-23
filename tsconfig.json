@@ -40,6 +40,9 @@
       "@utils": [
         "./src/utils"
       ],
+      "@query": [
+        "./src/react-query"
+      ],
       "@screens/*": [
         "./src/screens/*"
       ]
