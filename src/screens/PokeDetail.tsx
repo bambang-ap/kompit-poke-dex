@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, Text, View} from 'react-native';
+import {Image, ScrollView, Text, View} from 'react-native';
 
 import {useRecoilState} from 'recoil';
 
@@ -17,9 +17,9 @@ export default function PokeDetail() {
   const {navigation, route} = useStackNavigation<RootStackList.PokeDetail>();
 
   const [favorites, setFavorites] = useRecoilState(atomFavorites);
-  const url = route.params.url;
 
-  const id = getIdFromLastUrl(route.params.url);
+  const url = route.params.url;
+  const id = getIdFromLastUrl(url);
   const isFavorite = favorites.findIndex(cur => cur.url === url) >= 0;
 
   const {data} = usePokemonDetail(id);
@@ -33,30 +33,32 @@ export default function PokeDetail() {
   }
 
   return (
-    <AppScreen scrollable>
+    <AppScreen>
       <Header title="Pokemon Detail" onBack={navigation.goBack} />
 
-      <View className="pb-4 items-center border-b border-gray-500 -mx-4">
-        <View className="h-64 w-64">
-          <Image
-            className="w-full h-full"
-            source={{uri: data?.sprites.front_default}}
-          />
+      <ScrollView className="flex-1">
+        <View className="pb-4 items-center border-b border-gray-500 -mx-4">
+          <View className="h-64 w-64">
+            <Image
+              className="w-full h-full"
+              source={{uri: data?.sprites.front_default}}
+            />
+          </View>
         </View>
-      </View>
 
-      <View className="flex-row justify-between items-center">
-        <Text className="text-2xl font-bold">{name?.ucwords()}</Text>
         <Spacer />
-        <Icon onPress={toggleFavorite} solid={isFavorite} name="heart" />
-      </View>
 
-      <Spacer />
+        <View className="flex-row justify-between items-center">
+          <Text className="text-2xl font-bold">{name?.ucwords()}</Text>
+          <Spacer />
+          <Icon onPress={toggleFavorite} solid={isFavorite} name="heart" />
+        </View>
 
-      <RenderSprites sprites={sprites!} />
-      <RenderAbilities abilities={abilities} />
+        <Spacer />
 
-      <Spacer />
+        <RenderSprites sprites={sprites!} />
+        <RenderAbilities abilities={abilities} />
+      </ScrollView>
     </AppScreen>
   );
 }

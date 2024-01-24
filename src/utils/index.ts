@@ -1,5 +1,7 @@
 import {Alert} from 'react-native';
 
+import toast from 'react-native-simple-toast';
+
 import {TPokemon} from '@appTypes/app.zod';
 import {PromptOptions} from '@appTypes/propsType.type';
 
@@ -9,12 +11,18 @@ export function getIdFromLastUrl(url: string) {
   return id;
 }
 
-export function favoriteToggler(ids: TPokemon[], id: TPokemon) {
-  const index = ids.findIndex(curId => curId === id);
+export function favoriteToggler(pokemons: TPokemon[], pokemon: TPokemon) {
+  const index = pokemons.findIndex(curId => curId.url === pokemon.url);
 
-  if (index >= 0) return ids.remove(index);
+  const pokeName = pokemon?.name?.ucwords();
 
-  return [...ids, id];
+  if (index >= 0) {
+    toast.show(`Successfully remove ${pokeName} from favorite`, 2500);
+    return pokemons.remove(index);
+  }
+
+  toast.show(`Successfully add ${pokeName} to favorite`, 2500);
+  return [...pokemons, pokemon];
 }
 
 export function prompt(message: string, options?: PromptOptions): void;
