@@ -16,17 +16,21 @@ const aliasesImports = Object.entries(pathLists).reduce(
   {},
 );
 
-module.exports = {
-  presets: ['module:metro-react-native-babel-preset'],
-  plugins: [
-    'nativewind/babel',
-    [
-      'module-resolver',
-      {
-        root: [baseUrl],
-        extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json'],
-        alias: aliasesImports,
-      },
+module.exports = function (api) {
+  api.cache(false);
+
+  return {
+    presets: ['module:metro-react-native-babel-preset'],
+    plugins: [
+      'nativewind/babel',
+      [
+        'module-resolver',
+        {
+          root: [baseUrl],
+          extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json'],
+          alias: aliasesImports,
+        },
+      ],
     ],
-  ],
+  };
 };
