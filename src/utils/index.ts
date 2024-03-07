@@ -2,7 +2,10 @@ import {Alert} from 'react-native';
 
 import {PromptOptions} from '@appTypes/propsType.type';
 
-export function initWebSocket(host: string) {
+export function initWebSocket() {
+  // const host = '192.168.0.102';
+  const host = '192.168.4.1';
+
   const socket = new WebSocket('ws:/' + '/' + host + ':81');
 
   socket.onopen = function () {

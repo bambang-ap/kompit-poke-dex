@@ -27,7 +27,6 @@ export function useButtons(
       title: 'W',
       layout: [15, 50],
       size: [75, 75],
-      icon: ['arrow-circle-up', 'arrow-alt-circle-up'],
       get events(): ButtonProps['events'] {
         return {
           onTouchStart: type => {
@@ -47,7 +46,6 @@ export function useButtons(
       title: 'S',
       layout: [15, 80],
       size: [75, 75],
-      icon: ['arrow-circle-down', 'arrow-alt-circle-down'],
       get events(): ButtonProps['events'] {
         return {
           onTouchStart: type => {
@@ -67,7 +65,6 @@ export function useButtons(
       title: 'A',
       layout: [70, 70],
       size: [75, 75],
-      icon: ['arrow-circle-left', 'arrow-alt-circle-left'],
       get events(): ButtonProps['events'] {
         return {
           onTouchStart: type => {
@@ -87,7 +84,6 @@ export function useButtons(
       title: 'D',
       layout: [85, 70],
       size: [75, 75],
-      icon: ['arrow-circle-right', 'arrow-alt-circle-right'],
       get events(): ButtonProps['events'] {
         return {
           onTouchStart: type => {
@@ -103,31 +99,29 @@ export function useButtons(
         };
       },
     },
-    {
-      title: 'Horn',
-      layout: [30, 85],
-      size: [75, 75],
-      icon: ['volume-down', 'volume-up'],
-      get events(): ButtonProps['events'] {
-        return {
-          onTouchStart: () => {
-            const state = false;
-            toggle(this.title, state);
-            send({key: this.title, state});
-          },
-          onTouchEnd: () => {
-            const state = true;
-            toggle(this.title, state);
-            send({key: this.title, state});
-          },
-        };
-      },
-    },
+    // {
+    //   title: 'Horn',
+    //   layout: [30, 85],
+    //   size: [75, 75],
+    //   get events(): ButtonProps['events'] {
+    //     return {
+    //       onTouchStart: () => {
+    //         const state = true;
+    //         toggle(this.title, state);
+    //         send({key: this.title, state});
+    //       },
+    //       onTouchEnd: () => {
+    //         const state = false;
+    //         toggle(this.title, state);
+    //         send({key: this.title, state});
+    //       },
+    //     };
+    //   },
+    // },
     {
       title: 'Engine',
-      layout: [40, 85],
+      layout: [45, 85],
       size: [75, 75],
-      icon: ['power-off', 'power-off'],
       get events(): ButtonProps['events'] {
         return {
           onTouchStart: type => {
